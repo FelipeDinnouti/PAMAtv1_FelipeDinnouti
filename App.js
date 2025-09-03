@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, FlatList, SectionList, Dimensions } from 'react-native';
-import { FlatListItem } from 'src/FlatListItem.js'
+import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
+import { FlatListItem } from './src/FlatListItem.js';
 
 const kExampleFlatListData = [
   {
