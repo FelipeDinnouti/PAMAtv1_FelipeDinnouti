@@ -15,7 +15,7 @@ function createColorStyle(color) {
     }
   }
   
-export default FlatlistItem = ({title, subtitle, color}) => (
+export default SectionListItem = ({name, price}) => (
     <View style={styles.flatlist_item}>
       <View style={createColorStyle(color)}>
       </View>

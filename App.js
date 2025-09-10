@@ -1,5 +1,10 @@
-import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Dimensions, SectionList } from 'react-native';
 import { FlatListItem } from './src/FlatListItem.js';
+import { SectionListItem } from './src/SectionListItem.js';
+
+import { useFonts, Ultra_400Regular} from '@expo-google-fonts/ultra';
+
+import FoodEntity from './src/FoodEntity.js'
 
 const kExampleFlatListData = [
   {
@@ -19,27 +24,48 @@ const kExampleFlatListData = [
   },
 ];
 
+const kSectionListData = [
+  {
+    title: 'Food',
+    data: [FoodEntity('Pizza', 20), FoodEntity('Burger', 12), FoodEntity('Butter Chicken', 22)],
+  },
+  {
+    title: 'Sides',
+    data: [FoodEntity('Fries', 4), FoodEntity('Onion Rings', 6), FoodEntity('Nugget', 2)],
+  },
+  {
+    title: 'Drinks',
+    data: [FoodEntity('Water', 1), FoodEntity('Lemonade', 2), FoodEntity('Coke', 3)],
+  },
+  {
+    title: 'Desserts',
+    data: [FoodEntity('Cheese Cake', 4), FoodEntity('Ice Cream', 6)],
+  },
+];
+
 const kWindowWidth = Dimensions.get('window').width;
 
-function createColorStyle(color) {
-  return {
-    backgroundColor: color, 
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
-    flex: 0.1,
-    flexGrow: 0,
-    flexShrink: 0,
-  }
-}
-
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Ultra_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bom dia, Aluno!</Text>
       <FlatList
         data={kExampleFlatListData}
         renderItem={({item}) => <FlatlistItem title={item.title} subtitle={item.subtitle} color={item.color}/>}
-        />
+      />
+      <SectionList
+        sections={kSectionListData}
+        keyExtractor={(item, index) => item+index}
+        renderItem={({item}) =>}
+      />
     </View>
   );
 }
@@ -53,29 +79,8 @@ const styles = StyleSheet.create({
   },
   title: {
     marginVertical: 40,
-    fontSize: 32
+    fontSize: 32,
+    fontFamily: 'Ultra_400Regular'
   },
-  item_title: {
-    fontSize: 20
-  },
-  item_subtitle: {
-    fontSize: 12
-  },
-  flatlist_item: {
-    width: kWindowWidth*0.85,
-    marginBottom: 10,
-    backgroundColor: '#f0f2f3',
 
-    borderRadius: 8,
-
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  flatlist_text_container: {
-    marginVertical: 8, 
-    display: 'flex',
-    flex: 1,
-    paddingHorizontal: 20
-  }
-  
 });
