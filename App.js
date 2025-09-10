@@ -1,23 +1,27 @@
 import { StyleSheet, Text, View, FlatList, Dimensions, SectionList } from 'react-native';
-import { FlatListItem } from './src/FlatListItem.js';
-import { SectionListItem } from './src/SectionListItem.js';
+
+import FlatListItem from './src/FlatListItem.js';
+import SectionListItem from './src/SectionListItem.js';
+import SectionListHeader from './src/SectionListHeader.js'
 
 import { useFonts, Ultra_400Regular} from '@expo-google-fonts/ultra';
-
 import FoodEntity from './src/FoodEntity.js'
 
 const kExampleFlatListData = [
   {
+    id: 0,
     title: 'First Item',
     subtitle: 'First Subtitle',
     color: "#D287F9"
   },
   {
+    id: 1,
     title: 'Second Item',
     subtitle: 'Second Subtitle',
     color: "#F56255",
   },
   {
+    id: 2,
     title: 'Third Item',
     subtitle: 'Third Subtitle',
     color: "#7298FF"
@@ -56,15 +60,24 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bom dia, Aluno!</Text>
-      <FlatList
+      <Text style={styles.title}>Good morning!</Text>
+      <FlatList style={styles.list}
         data={kExampleFlatListData}
-        renderItem={({item}) => <FlatlistItem title={item.title} subtitle={item.subtitle} color={item.color}/>}
+        // React uses the as a unique identifier for the item, meaning it can re-render it properly
+        keyExtractor={(item) => item.id}
+        // How it renders the item 
+        renderItem={({item}) => <FlatListItem title={item.title} subtitle={item.subtitle} color={item.color}/>}
       />
+      
+      <Text style={styles.title}>Foodstuffs</Text>
+      
       <SectionList
         sections={kSectionListData}
-        keyExtractor={(item, index) => item+index}
-        renderItem={({item}) =>}
+
+        keyExtractor={(item) => item.id}
+
+        renderItem={({item}) => <SectionListItem name={item.name} price={item.price}/>}
+        renderSectionHeader={({section}) => <SectionListHeader title={section.title}/>}
       />
     </View>
   );
@@ -78,9 +91,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    marginVertical: 40,
+    marginBottom: 20,
+    marginTop: 60,
     fontSize: 32,
     fontFamily: 'Ultra_400Regular'
   },
-
+  list: {
+    height: 600
+  }
 });
