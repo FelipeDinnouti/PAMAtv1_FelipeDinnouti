@@ -4,8 +4,7 @@ import FlatListItem from './src/FlatListItem.js';
 import SectionListItem from './src/SectionListItem.js';
 import SectionListHeader from './src/SectionListHeader.js'
 
-import { useFonts, Ultra_400Regular} from '@expo-google-fonts/ultra';
-import FoodEntity from './src/FoodEntity.js'
+import FoodStruct from './src/FoodStruct.js'
 
 const kExampleFlatListData = [
   {
@@ -31,33 +30,25 @@ const kExampleFlatListData = [
 const kSectionListData = [
   {
     title: 'Food',
-    data: [FoodEntity('Pizza', 20), FoodEntity('Burger', 12), FoodEntity('Butter Chicken', 22)],
+    data: [FoodStruct('Pizza', 20), FoodStruct('Burger', 12), FoodStruct('Butter Chicken', 22)],
   },
   {
     title: 'Sides',
-    data: [FoodEntity('Fries', 4), FoodEntity('Onion Rings', 6), FoodEntity('Nugget', 2)],
+    data: [FoodStruct('Fries', 4), FoodStruct('Onion Rings', 6), FoodStruct('Nugget', 2)],
   },
   {
     title: 'Drinks',
-    data: [FoodEntity('Water', 1), FoodEntity('Lemonade', 2), FoodEntity('Coke', 3)],
+    data: [FoodStruct('Water', 1), FoodStruct('Lemonade', 2), FoodStruct('Coke', 3)],
   },
   {
     title: 'Desserts',
-    data: [FoodEntity('Cheese Cake', 4), FoodEntity('Ice Cream', 6)],
+    data: [FoodStruct('Cheese Cake', 4), FoodStruct('Ice Cream', 6)],
   },
 ];
 
 const kWindowWidth = Dimensions.get('window').width;
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
-    Ultra_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Good morning!</Text>
@@ -74,7 +65,7 @@ export default function App() {
       <SectionList
         sections={kSectionListData}
 
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => item.name+index}
 
         renderItem={({item}) => <SectionListItem name={item.name} price={item.price}/>}
         renderSectionHeader={({section}) => <SectionListHeader title={section.title}/>}
@@ -94,7 +85,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 60,
     fontSize: 32,
-    fontFamily: 'Ultra_400Regular'
   },
   list: {
     height: 600
