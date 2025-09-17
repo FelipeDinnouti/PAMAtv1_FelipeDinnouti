@@ -1,3 +1,5 @@
+// https://github.com/Genymobile/scrcpy/blob/master/doc/windows.md#run
+
 import { StyleSheet, Text, View, FlatList, Dimensions, SectionList } from 'react-native';
 
 import FlatListItem from './src/FlatListItem.js';
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 20,
     marginTop: 60,
-    fontSize: 32,
+    fontSize: 48,
   },
   list: {
     height: 600
